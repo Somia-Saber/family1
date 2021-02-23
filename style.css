@@ -90,3 +90,14 @@ thead{
 tr:nth-child(even){
     background-color: rgb(255, 196, 208);
 }
+form{
+   font-size: 20px;
+
+}
+input{
+border: 1px solid deeppink  ;
+
+}
+legend{
+    color:deeppink ;
+}
