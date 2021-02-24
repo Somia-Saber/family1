@@ -67,13 +67,37 @@ li a.active{
     background-color: deeppink;
     color:white;
 }
-div{
+div:not(.searchbar){
 
-    border: 3px solid deeppink  ;
+    border: 3px deeppink ;
     border-radius: 15px;
     box-shadow: 5px 5px 0px pink;
 
 }
+.searchbar{
+    width: 40%;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 8px 8px;
+    border-radius:15px;
+    border: 1px;
+    border-style: solid;
+    border-color: rgb(255, 119, 214);
+
+}
+.searchbar:hover{
+    box-shadow:5px 3px 5px  rgb(255, 81, 110);
+}
+
+.searchbox{
+    padding: 9px 9px;
+    margin: 0px 2px;
+    width: 100%;
+    border: none;
+   outline: none;
+  
+   border-radius:15px;
+}
+
 table#fam{
     width: 100%;
     border-collapse:collapse ;
