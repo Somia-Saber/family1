@@ -2,12 +2,15 @@
 <head>
 <title>Family</title>
 <link rel="stylesheet" type="text/css" href="style.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <script>
-var datasource=[["1","ayman","25","poy.png"],
-["2","nafea","24","girl.png"],
-["3","maryam","21","girl.png"],
-["4","somia","20","girl.png"]]
+//var datasource=[["1","ayman","25","poy.png"],
+//["2","nafea","24","girl.png"],
+//["3","maryam","21","girl.png"],
+//["4","somia","20","girl.png"]]
 //document.writeln("<h1>somia</h1>");
+
 
 
 </script>
@@ -28,7 +31,11 @@ var datasource=[["1","ayman","25","poy.png"],
         <div class="searchbar">
 
           <input  type="search" class="searchbox" id="textsearch" oninput="mysearch">
+         <div class="searchicon" onclick="listen();">
+          <i class="material-icons">mic</i>
+           </div>
         </div>
+        
         <div id="mytable">
 
         </div>
@@ -40,115 +47,121 @@ var datasource=[["1","ayman","25","poy.png"],
 <a href="mailto:20195372@fue.edu.eg">contact us</a>
 <!--#footer-->
 <script>
+    var datasource;
     function init(){
+        datasource=[];
+        JSONData();
         
-        var table="";
-    table+="<table border='5'id='fam'>"+
-            "<thead>"+
-            "<tr>"+
-            "<td>ID</td>"+
-            "<td>Name</td>"+
-            "<td>Age</td>"+
-            "<td>Image</td>"+
-            "</tr>"+
-            "</thead>"+
-            "<tbody>";
-                var counter=0;
-                for(var i=0;i<datasource.length;i++)
-                {
-                    var familyid=datasource[i][0];
-                    var familyname=datasource[i][1];
-                    var familyage=datasource[i][2];
-                    var familyimage=datasource[i][3];
-                    table+="<tr>";
-                   table +="<td>"+familyid+"</td>";
-                   table +="<td>"+familyname+"</td>";
-                   table +="<td>"+familyage+"</td>";
-                   table +="<td><img src='images\\"+familyimage+"'width='50px' height='60px' alt='"+familyname+"'</td>";
-                   table +="</tr>";
-                 counter++;
-                }
-                table+="</tbody>";
-                table+="<tfoot>"+
-                "<tr>"+
-                "<td colspan='4'>"+
-                 "total no of name: "+counter+
-                 "</td>"+
-                 "</tr>"+
-                 "</tfoot>"+
-                 "</table>";
-                    
-               
-    document.getElementById('mytable').innerHTML=table;
-
+    
     }
     function mysearch()
         {
             var input =document.getElementById('textsearch').value;
-            console.log(input);
-            searchalgorithm(input);
+           // console.log(input);
+            searchalgorithm(input,datasource);
         }
-        function searchalgorithm(input){
-            var flat =[].concat.apply([],datasource);
-            console.log(flat);
+        function searchalgorithm(input,data){
+            var flat =[].concat.apply([],data);
+            var tempDataSource=[];
+           // console.log(flat);
             var col =flat.indexof(input);
-            console.log(col);
+            //console.log(col);
             var row =-1;
             if(col !=-1){
-                while(datasource[++row].length<= col)
+                while(data[++row].length<= col)
                 {
-                    col -=arry[row].length;
+                    col -=data[row].length;
                 }
-                drawresultable(row);
+                tempDataSource.push(data[row]);
+                drawresultable(tempDataSource);
             }else
             {
                 int();
+            }
+        }
+        function drawresultable(data){
+
+var table="";
+table+="<table border='5'id='fam'>"+
+"<thead>"+
+"<tr>"+
+"<td>ID</td>"+
+"<td>Name</td>"+
+"<td>Age</td>"+
+"<td>Image</td>"+
+"</tr>"+
+"</thead>"+
+"<tbody>";
+var counter=0;
+for(let i=0;i<data.length;i++)
+{
+    var familyid=data[i][0];
+    var familyname=data[i][1];
+    var familyage=data[i][2];
+    var familyimage=data[i][3];
+    table+="<tr>";
+   table +="<td>"+familyid+"</td>";
+   table +="<td>"+familyname+"</td>";
+   table +="<td>"+familyage+"</td>";
+   table +="<td><img src='images\\"+familyimage+"'width='50px' height='60px' alt='"+familyname+"'</td>";
+   table +="</tr>";
+ counter++;
+}
+table+="</tbody>";
+table+="<tfoot>"+
+"<tr>"+
+"<td colspan='4'>"+
+ "total no of name: "+counter+
+ "</td>"+
+ "</tr>"+
+ "</tfoot>"+
+ "</table>";
+    
+
+document.getElementById('mytable').innerHTML=table;
+}
+
+       function JSONData(){
+        var data_file="data.json"
+        var http_request=new XMLHttpRequest();
+        
+
+
+        http_request.onreadystatechange=function(){
+            var tempDataSource=[];
+            var familyArray=[];
+            if (http_request.readyState==4)
+            {
+                var jsonObj=JSON.parse(http_request.responseText);
+                //console.log(jsonObj);
+                for (let i = 0; i < jsonObj.family.length; i++) {
+                  var family=jsonObj.family[i];
+                  familyArray.push(family.id);
+                  familyArray.push(family.name);
+                  familyArray.push(family.age);
+                  familyArray.push(family.image);
+                  tempDataSource.push(familyArray);
+                  familyArray=[];
+
+                    
+                }
+                datasource=tempDataSource;
+                drawresultable(tempDataSource);
 
 
             }
-             function drawresultable(row){
-
-                var table="";
-    table+="<table border='5'id='fam'>"+
-            "<thead>"+
-            "<tr>"+
-            "<td>ID</td>"+
-            "<td>Name</td>"+
-            "<td>Age</td>"+
-            "<td>Image</td>"+
-            "</tr>"+
-            "</thead>"+
-            "<tbody>";
-                var counter=0;
-                for(var i=0;i<datasource.length;i++)
-                {
-                    var familyid=datasource[row][0];
-                    var familyname=datasource[row][1];
-                    var familyage=datasource[row][2];
-                    var familyimage=datasource[row][3];
-                    table+="<tr>";
-                   table +="<td>"+familyid+"</td>";
-                   table +="<td>"+familyname+"</td>";
-                   table +="<td>"+familyage+"</td>";
-                   table +="<td><img src='images\\"+familyimage+"'width='50px' height='60px' alt='"+familyname+"'</td>";
-                   table +="</tr>";
-                 counter++;
-                }
-                table+="</tbody>";
-                table+="<tfoot>"+
-                "<tr>"+
-                "<td colspan='4'>"+
-                 "total no of name: "+counter+
-                 "</td>"+
-                 "</tr>"+
-                 "</tfoot>"+
-                 "</table>";
-                    
-               
-    document.getElementById('mytable').innerHTML=table;
-             }
-
         }
+        http_request.open("GET",data_file,true);
+        http_request.send();
+
+
+       }
+function listen(){
+
+    window.alert("listening");
+
+}
+
 </script>
 
 </body>
