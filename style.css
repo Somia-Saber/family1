@@ -75,8 +75,8 @@ div:not(.searchbar){
 
 }
 .searchbar{
-    width: 40%;
-    padding: 0px 0px 0px 0px;
+    width: 35%;
+    padding: 0px;
     margin: 0px 0px 8px 8px;
     border-radius:15px;
     border: 1px;
@@ -90,7 +90,7 @@ div:not(.searchbar){
 
 .searchbox{
     padding: 9px 9px;
-    margin: 0px 2px;
+    margin: 0px 2px ;
     width: 100%;
     border: none;
    outline: none;
@@ -196,3 +196,11 @@ body{
         margin: 15px;
 
     }
+.searchicon{
+padding-top: 0px;
+fill:#a7a7a7;
+width: 20px;
+height: 20px;
+
+cursor: pointer;
+}
